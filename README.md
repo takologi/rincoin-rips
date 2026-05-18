@@ -18,6 +18,8 @@ The RIP process itself is defined in [RIP-0001](rip-0001/rip-0001.md).
 | [0006](rip-0006/rip-0006.md) | Cryptographic Vault and ZKP Owner Recovery | Consensus (HF) | Standards Track | Draft | RIP-0001, RIP-0005 |
 | [0007](rip-0007/rip-0007.md) | Sweeper Bounty Mechanism for Forced Extraction | Consensus (HF) | Standards Track | Draft | RIP-0001, RIP-0006 |
 | [0008](rip-0008/rip-0008.md) | Phased Legacy Address Migration Protocol | Consensus (HF) | Standards Track | Draft | RIP-0001, RIP-0006, RIP-0007 |
+| [0009](rip-0009/rip-0009.md) | RinHash Transaction Version Enforcement (RIN3) | Consensus (HF) | Standards Track | Draft | RIP-0001, RIP-0002 |
+| [0010](rip-0010/rip-0010.md) | Dynamic Subsidy Scaling | Consensus (HF) | Standards Track | Draft | RIP-0001, RIP-0002 |
 
 ---
 
@@ -30,7 +32,7 @@ RIPs activate at the following block heights (mainnet, 60 s/block):
 | 0 (genesis) | 0 | RIP-0002 | ✅ Active | Embedded in chainparams from genesis (Core v1.0.6) |
 | **— (mainnet `NEVER_ACTIVE`)** | — | RIP-0004 (MWEB) | **Suspended** | Sealed via BIP9 NEVER_ACTIVE; reactivation requires successor RIP |
 | 840 (testnet/regtest) | — | RIP-0004 (MWEB) | Active on testnet/regtest | Soft-fork activation for validation purposes |
-| 840,000 | ~1.60 | RIP-0002 CH activation boundary | ⏳ Pending | Hard-fork flag day |
+| 840,000 | ~1.60 | RIP-0002 CH activation boundary, RIP-0009 (RIN3), RIP-0010 (Dynamic Subsidy Scaling) | ⏳ Pending | Single hard-fork flag day |
 | 5,250,000–6,260,000 | ~10–12 | RIP-0003 (CSV) — signaling window | ⏳ Pending | BIP9-style with objective gating, bit 1, threshold 90% |
 | 6,300,000 | ~12 | RIP-0002 terminal phase entry / RIP-0003 (if activated) | ⏳ Pending | Automatic |
 | 15,768,000 | ~30 | RIP-0007, RIP-0008 | ⏳ Pending | Time-deterministic hard fork |
@@ -38,7 +40,9 @@ RIPs activate at the following block heights (mainnet, 60 s/block):
 
 Current chain progress: see [Rincoin Core](https://github.com/Rin-coin/rincoin) repository.
 
-RIP-0001 is `Active` as the governing process specification. RIP-0002 (Customized Halving) is `Active`: the schedule has been enforced from genesis on the Rincoin mainchain via Core v1.0.6, with Phase 0→1 and Phase 1→2 boundaries validated in production. RIP-0003 and RIP-0005 through RIP-0008 are `Draft`. Reference implementations exist in [`rincoin-sim`](https://github.com/Aevust/rincoin-sim) and [Rincoin Core](https://github.com/Rin-coin/rincoin) for RIP-0002 and RIP-0004; reference implementations for RIP-0003 and RIP-0005 through RIP-0008 are pending.
+RIP-0001 is `Active` as the governing process specification. RIP-0002 (Customized Halving) is `Active`: the schedule has been enforced from genesis on the Rincoin mainchain via Core v1.0.6, with Phase 0→1 and Phase 1→2 boundaries validated in production. RIP-0003, RIP-0005 through RIP-0008, and RIP-0009 through RIP-0010 are `Draft`. Reference implementations exist in [`rincoin-sim`](https://github.com/Aevust/rincoin-sim) and [Rincoin Core](https://github.com/Rin-coin/rincoin) for RIP-0002 and RIP-0004; the reference implementation for RIP-0009 and RIP-0010 is in progress (Core v1.0.7 pre-release, definitive in v1.1.0). Reference implementations for RIP-0003 and RIP-0005 through RIP-0008 are pending.
+
+**Note on the Block 840,000 hard fork**: RIP-0002 (CH dilation), RIP-0009 (RIN3 transaction-version replay protection), and RIP-0010 (Dynamic Subsidy Scaling implementation) are co-activated as a single, well-announced hard-fork event at Block 840,000. Consolidating these consensus changes into one flag day minimizes operational disruption for node operators and mining pools. The minimum-peer-version floor (PROTOCOL_VERSION 70018) is tracked separately as a v1.1.0 networking change activating at the same height.
 
 **Note on RIP-0004 (MWEB)**: While the specification is implemented in Core v1.0.6 and validated in `rincoin-sim`, the mainnet activation has been suspended via BIP9 `NEVER_ACTIVE` per a strategic decision of the Rincoin Core Authority. The suspension is documented in §2.1 of RIP-0004. Testnet and regtest activation at block 840 remains in effect for validation purposes. Any future reactivation requires a successor RIP per the conditions outlined in RIP-0004.
 
@@ -52,6 +56,11 @@ RIP-0001 (Process, foundational)
     ├──► RIP-0002 (Customized Halving)
     │       │
     │       ├──► RIP-0003 (Conditional Stability Valve)
+    │       │
+    │       ├──► RIP-0009 (RIN3 Tx Version Enforcement) ◄─┐
+    │       │                                             │ related
+    │       ├──► RIP-0010 (Dynamic Subsidy Scaling) ◄─────┘
+    │       │       (RIP-0009 + RIP-0010 co-activate at Block 840,000)
     │       │
     │       └──► RIP-0005 (Proof of Rinne)
     │               │
@@ -82,11 +91,7 @@ RIP-0001 (Process, foundational)
 
 ## Core Role Governance
 
-The Core Strategic Authority (Core Technical Lead, Core Authority Lead,
-Core Research Lead, Principal Architect), version-numbering scheme
-(`v[GENERATION].[MAJOR].[MINOR]`), and succession procedure are defined
-in [RIP-0001](rip-0001/rip-0001.md). Current role assignments are
-maintained in [`governance/core-role.md`](governance/core-role.md).
+The Core Strategic Authority (Core Technical Lead, Core Authority Lead, Core Research Lead, Principal Architect), version-numbering scheme (`v[GENERATION].[MAJOR].[MINOR]`), and succession procedure are defined in [RIP-0001](rip-0001/rip-0001.md). Current role assignments are maintained in [`governance/core-role.md`](governance/core-role.md).
 
 ---
 
@@ -102,7 +107,7 @@ The mapping between whitepaper sections and RIPs:
 |--------------------|-----|
 | §1 Introduction (Tetra-Lemma) | Motivation contexts in RIP-0002, RIP-0005 |
 | §2 Network Specifications | (informational; not RIP'd) |
-| §3 Customized Halving Mechanism | RIP-0002 (baseline), RIP-0003 (Scenario III) |
+| §3 Customized Halving Mechanism | RIP-0002 (baseline), RIP-0003 (Scenario III), RIP-0009 (RIN3), RIP-0010 (Dynamic Subsidy Scaling) |
 | §4 Proof of Rinne | RIP-0005 |
 | §5 Algorithmic Governance of τ | RIP-0005 §6 (Delay Parameter Governance) |
 | §6 Adversarial Models & Asset Lifecycle | RIP-0006, RIP-0007, RIP-0008 |
@@ -138,11 +143,16 @@ rincoin-rips/
 │   └── rip-0007.md
 ├── rip-0008/
 │   └── rip-0008.md
+├── rip-0009/
+│   └── rip-0009.md
+├── rip-0010/
+│   └── rip-0010.md
 ├── doc/
 │   └── assets/
 │       ├── simulation-bva-results.png
 │       ├── simulation-mimble-wimble-results.png
-│       └── simulation-mweb-reorg-results.png
+│       ├── simulation-mweb-reorg-results.png
+│       └── simulation-rin3-results.png
 ├── governance/
 │   ├── core-role.md
 │   └── editor-changes.md
