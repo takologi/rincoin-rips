@@ -1,0 +1,21 @@
+name: rip-check
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  rip-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate RIP structure
+        run: |
+          # rip-NNNN/rip-NNNN.md Format Verification
+          for dir in rip-*/; do
+            rip_num=$(basename "$dir")
+            if [ ! -f "${dir}${rip_num}.md" ]; then
+              echo "ERROR: ${dir}${rip_num}.md does not exist"
+              exit 1
+            fi
+          done
+          echo "RIP structure OK"
