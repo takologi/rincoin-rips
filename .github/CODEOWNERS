@@ -1,0 +1,7 @@
+# .github/CODEOWNERS
+#
+# All changes require review and approval from @ysmreg (Founder / Core Technical Lead).
+# @Aevust submits pull requests from aevust/rincoin-rips to this repository.
+# Merging requires @ysmreg approval in all cases.
+
+*                   @ysmreg
