@@ -1,6 +1,8 @@
 # Rincoin Core Role Assignments
 
-**Last Updated**: 2026-05-14
+> **Scope:** This file records project-level role assignments inside the author's Rincoin Core development effort. It is **not part of the RIP process** defined in RIP-0001 and confers **no authority** over the review, acceptance, or status of RIPs. RIP-process decisions are governed solely by the editors listed in [`editor-changes.md`](editor-changes.md), per RIP-0001 §Editors.
+
+**Last Updated**: 2026-05-20
 
 | Role | Current Holder |
 |------|----------------|
@@ -10,17 +12,4 @@
 | Core Research Lead | @Aevust |
 | Principal Architect | @Aevust |
 
-## Current Voter Count
-
-**Distinct voters**: 2 (@ysmreg, @Aevust)
-
-**Required authority for version increments**:
-
-| Component | Required |
-|-----------|----------|
-| MINOR (v1.0.x) | 1 vote — permitted by any single Core Role holder |
-| MAJOR / GENERATION | 2/2 — unanimous agreement required |
-
-## Role Assignment History
-
-See `governance/editor-changes.md` for the full record of role transitions and assignment changes.
+Project-level role assignment history is maintained outside this repository. RIP editor changes are recorded separately in [`editor-changes.md`](editor-changes.md).

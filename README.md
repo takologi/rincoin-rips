@@ -6,6 +6,19 @@ The RIP process itself is defined in [RIP-0001](rip-0001/rip-0001.md).
 
 ---
 
+## Bootstrap status (read this first)
+
+This repository is in a **bootstrap phase**. Specifically:
+
+- The RIP process described in RIP-0001 was published without a prior public discussion period. RIP-0001 is itself in `Draft` and is subject to revision.
+- No public discussion venue ("Discussion-To") is yet operational. Preambles list `TBD` accordingly.
+- The set of editors is bootstrapped at two: the original author of these documents and one independent editor (see [`governance/editor-changes.md`](governance/editor-changes.md)). Further editors will be appointed per RIP-0001 §Editors.
+- Almost every Standards Track RIP in this repository was authored unilaterally and has not yet undergone substantive editor or community review. Such RIPs are marked `Idea` (a pre-`Draft` state defined in RIP-0001 §RIP Status). Do not interpret their presence here as endorsement by Rincoin's user community.
+
+Until that changes, RIPs in this repository should be read as **proposals from their respective authors**, not as ratified protocol policy.
+
+---
+
 ## Index
 
 | Number | Title | Layer | Type | Status | Requires |
